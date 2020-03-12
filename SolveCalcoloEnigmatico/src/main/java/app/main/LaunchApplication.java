@@ -20,6 +20,7 @@ public class LaunchApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LaunchApplication.class, args);
+
 	}
 
 }

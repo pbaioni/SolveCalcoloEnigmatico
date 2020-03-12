@@ -9,6 +9,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Service;
 
 import app.main.properties.ApplicationProperties;
+import app.model.CalcoloEnigmatico;
+import app.persistence.services.CalcService;
 import app.persistence.services.OperationService;
 
 @Service
@@ -21,6 +23,9 @@ public class Application implements ApplicationRunner, DisposableBean {
 
 	@Autowired
 	OperationService operationService;
+	
+	@Autowired
+	CalcService calcService;
 
 	public void init() {
 		// app property example
@@ -34,17 +39,23 @@ public class Application implements ApplicationRunner, DisposableBean {
 
 		LOGGER.info("Application started");
 		
+		//load and solve example 1
+		CalcoloEnigmatico calcolo = calcService.loadCalc("calc1.dat");
+		calcService.solveCalc(calcolo);
+		
 	}
 
 	public void stop() {
 		LOGGER.info("Stopping Application");
 		LOGGER.info("Application stopped");
+		
 	}
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		init();
 		start();
+
 	}
 
 	@Override

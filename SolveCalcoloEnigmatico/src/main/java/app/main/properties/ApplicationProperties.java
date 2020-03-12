@@ -20,7 +20,6 @@ public class ApplicationProperties {
 	}
 
 
-
 	public void setAppProperty(String appProperty) {
 		this.appProperty = appProperty;
 	}
