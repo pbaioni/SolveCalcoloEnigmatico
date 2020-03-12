@@ -8,6 +8,6 @@ import app.persistence.model.OperationDo;
 @Repository
 public interface OperationRepository extends JpaRepository<OperationDo, String>{
 
-    public OperationDo findByCryptoOperation(String userName);
+    public Iterable<OperationDo> findByCrypto(String crypto);
 
 }

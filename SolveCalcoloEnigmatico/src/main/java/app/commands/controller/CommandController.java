@@ -57,7 +57,7 @@ public class CommandController implements CommandLineRunner, DisposableBean {
 			br = new BufferedReader(new InputStreamReader(System.in));
 			LOGGER.info("Commands : ");
 			LOGGER.info("q : quit");
-			LOGGER.info("results cryptoOperation : gets the operations for a specific CryptoOperation");
+			LOGGER.info("search crypto : gets the operations for a specific crypto");
 
 
 			runCommands = true;
@@ -109,9 +109,9 @@ public class CommandController implements CommandLineRunner, DisposableBean {
 				this.destroy();
 				System.exit(0);
 				break;
-			case "results":
-				for (String result : operationService.getOperation(arguments.get(0)).getOperations()) {
-					LOGGER.info(result);
+			case "search":
+				for (OperationDo result : operationService.searchCrypto(arguments.get(0))) {
+					LOGGER.info(result.getOperation());
 				}
 				break;
 			default:

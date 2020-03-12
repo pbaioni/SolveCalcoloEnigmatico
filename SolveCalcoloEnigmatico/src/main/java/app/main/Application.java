@@ -26,9 +26,6 @@ public class Application implements ApplicationRunner, DisposableBean {
 		// app property example
 		LOGGER.info("App property: " + properties.getAppProperty());
 
-		// initializing services
-		operationService.fillDB();
-
 		LOGGER.info("Application initialized");
 
 	}
@@ -36,6 +33,7 @@ public class Application implements ApplicationRunner, DisposableBean {
 	public void start() {
 
 		LOGGER.info("Application started");
+		
 	}
 
 	public void stop() {

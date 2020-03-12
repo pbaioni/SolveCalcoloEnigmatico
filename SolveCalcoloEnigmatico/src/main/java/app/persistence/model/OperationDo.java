@@ -1,16 +1,14 @@
 package app.persistence.model;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+
+import app.persistence.services.OperationHelper;
+
+
 
 /** 
  * 	This is a data structure, so
@@ -21,52 +19,43 @@ import javax.persistence.Table;
 public class OperationDo {
 	
     @Id    
-    @Column(name="crypto")
-    public String cryptoOperation;
+    @Column(name="operation")
+    public String operation;
     
-    @ElementCollection
-    @CollectionTable(name="clearOperations", joinColumns=@JoinColumn(name="crypto"))
-    @Column(name="operations")
-    public List<String> operations;
+    @Column(name="crypto")
+    public String crypto;
 
 	
 	public OperationDo() {
 		//Default constructor needed for JPA.
 	}
 	
-	public OperationDo(String cryptoOperation) {
+	public OperationDo(String operation) {
 		super();
-		this.cryptoOperation = cryptoOperation;
-		this.operations = new ArrayList<String>();
+		this.operation = operation;
+		this.crypto = OperationHelper.ClearToCrypto(operation);
 	}
 
-	public OperationDo(String cryptoOperation, List<String> operations) {
-		super();
-		this.cryptoOperation = cryptoOperation;
-		this.operations = operations;
+	public String getOperation() {
+		return operation;
 	}
 
-	public String getCryptoOperation() {
-		return cryptoOperation;
+	public void setOperation(String operation) {
+		this.operation = operation;
 	}
 
-	public void setCryptoOperation(String cryptoOperation) {
-		this.cryptoOperation = cryptoOperation;
+	public String getCrypto() {
+		return crypto;
 	}
 
-	public List<String> getOperations() {
-		return operations;
-	}
-
-	public void setOperations(List<String> operations) {
-		this.operations = operations;
+	public void setCrypto(String crypto) {
+		this.crypto = crypto;
 	}
 
 	@Override
 	public String toString() {
-		return "OperationDo [cryptoOperation=" + cryptoOperation + ", operations=" + operations + "]";
+		return "OperationDo [operation=" + operation + ", crypto=" + crypto + "]";
 	}
-
 	
 }
 
