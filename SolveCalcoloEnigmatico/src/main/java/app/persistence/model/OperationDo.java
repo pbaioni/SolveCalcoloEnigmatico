@@ -33,7 +33,7 @@ public class OperationDo {
 	public OperationDo(String operation) {
 		super();
 		this.operation = operation;
-		this.crypto = OperationHelper.ClearToCrypto(operation);
+		this.crypto = OperationHelper.ReduceToCrypto(operation);
 	}
 
 	public String getOperation() {

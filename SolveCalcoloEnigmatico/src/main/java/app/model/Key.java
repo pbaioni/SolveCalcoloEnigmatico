@@ -5,14 +5,23 @@ import java.util.TreeMap;
 
 public class Key {
 
+	
 
 	private TreeMap<Integer, String> keyMap;
-
-	private int validMerges = 0;
+	
+	private TreeMap<String, String> resultMap = new TreeMap<String, String>();
 
 
 	public Key() {
 		initKeyMap();
+	}
+	
+	public Key(String row, String operation) {
+		
+		initKeyMap();
+		mergeResult(row, operation);
+		resultMap.put(row, operation);
+
 	}
 
 
@@ -24,21 +33,39 @@ public class Key {
 		}
 	}
 
-	public boolean mergeResult(String numericalRelativeCrypto, String wordResult) {
+	public boolean mergeResult(String row, String operation) {
 
-
-		return false;
+		resultMap.put(row, operation);
+		return true;
 	}
 
-	public boolean isCompatibleResult(String nrc, String wordResult) {
+	public boolean isCompatibleKey(Key otherKey) {
 		boolean rval = true;
 
 		return rval;
 	}
 
 
-	public int getValidMerges() {
-		return validMerges;
+	public int getMerges() {
+		return resultMap.size();
+	}
+	
+	
+
+	public TreeMap<Integer, String> getKeyMap() {
+		return keyMap;
+	}
+
+	public void setKeyMap(TreeMap<Integer, String> keyMap) {
+		this.keyMap = keyMap;
+	}
+
+	public TreeMap<String, String> getResultMap() {
+		return resultMap;
+	}
+
+	public void setResultMap(TreeMap<String, String> resultMap) {
+		this.resultMap = resultMap;
 	}
 
 	public String getKeyAsString() {
@@ -50,11 +77,9 @@ public class Key {
 		return builder.toString();
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "Key [keyMap=" + keyMap + ", validMerges=" + validMerges + "]";
+		return "Key [keyMap=" + keyMap + ", resultMap=" + resultMap + "]";
 	}
 
 }

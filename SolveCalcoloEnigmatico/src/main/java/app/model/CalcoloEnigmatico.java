@@ -24,6 +24,32 @@ public class CalcoloEnigmatico {
 		this.solutionKey = new Key();
 
 	}
+	
+	
+
+	public List<String> getRows() {
+		return rows;
+	}
+
+
+
+	public void setRows(List<String> rows) {
+		this.rows = rows;
+	}
+
+
+
+	public Key getSolutionKey() {
+		return solutionKey;
+	}
+
+
+
+	public void setSolutionKey(Key solutionKey) {
+		this.solutionKey = solutionKey;
+	}
+
+
 
 	@Override
 	public String toString() {
