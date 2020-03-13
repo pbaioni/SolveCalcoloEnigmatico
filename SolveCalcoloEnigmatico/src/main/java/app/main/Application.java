@@ -40,8 +40,12 @@ public class Application implements ApplicationRunner, DisposableBean {
 		LOGGER.info("Application started");
 		
 		//load and solve example 1
-		CalcoloEnigmatico calcolo = calcService.loadCalc("calc1.dat");
-		calcService.solveCalc(calcolo);
+		CalcoloEnigmatico calcolo1 = calcService.loadCalc("calc1.dat");
+		calcService.solveCalc(calcolo1);
+		
+		//load and solve example 2
+		CalcoloEnigmatico calcolo2 = calcService.loadCalc("calc2.dat");
+		calcService.solveCalc(calcolo2);
 		
 	}
 

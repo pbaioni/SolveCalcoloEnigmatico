@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import app.commands.properties.CommandProperties;
 import app.persistence.model.OperationDo;
+import app.persistence.services.OperationHelper;
 import app.persistence.services.OperationService;
 
 
@@ -110,7 +111,7 @@ public class CommandController implements CommandLineRunner, DisposableBean {
 				System.exit(0);
 				break;
 			case "search":
-				for (OperationDo result : operationService.searchCrypto(arguments.get(0))) {
+				for (OperationDo result : operationService.searchCrypto(OperationHelper.ReduceToCrypto(arguments.get(0)))) {
 					LOGGER.info(result.getOperation());
 				}
 				break;
