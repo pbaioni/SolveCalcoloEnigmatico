@@ -45,8 +45,8 @@ public class Application implements ApplicationRunner, DisposableBean {
 
 		LOGGER.info("Application started");
 		
+		//looking for calc files
 		File dir = new File(calcFilesPath);
-
 		File[] calcFiles = dir.listFiles(new FilenameFilter()
 		{
 		  public boolean accept(File dir, String name)
