@@ -33,6 +33,7 @@ public class Application implements ApplicationRunner, DisposableBean {
 	private String calcFilesPath = "./src/main/resources/calcs/";
 
 	public void init() {
+		
 		// app property example
 		LOGGER.info("App property: " + properties.getAppProperty());
 
