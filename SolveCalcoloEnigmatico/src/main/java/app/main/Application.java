@@ -1,5 +1,8 @@
 package app.main;
 
+import java.io.File;
+import java.io.FilenameFilter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -26,6 +29,8 @@ public class Application implements ApplicationRunner, DisposableBean {
 	
 	@Autowired
 	CalcService calcService;
+	
+	private String calcFilesPath = "./src/main/resources/calcs/";
 
 	public void init() {
 		// app property example
@@ -39,17 +44,27 @@ public class Application implements ApplicationRunner, DisposableBean {
 
 		LOGGER.info("Application started");
 		
-		//load and solve example 1
-		CalcoloEnigmatico calcolo1 = calcService.loadCalc("calc1.dat");
-		calcService.solveCalc(calcolo1);
+		File dir = new File(calcFilesPath);
+
+		File[] calcFiles = dir.listFiles(new FilenameFilter()
+		{
+		  public boolean accept(File dir, String name)
+		  {
+		     return name.endsWith(".dat");
+		  }
+		});
 		
-		//load and solve example 2
-		CalcoloEnigmatico calcolo2 = calcService.loadCalc("calc2.dat");
-		calcService.solveCalc(calcolo2);
+		//load and solve problems
+		for(File calcFile : calcFiles) {
+			CalcoloEnigmatico calcolo = calcService.loadCalc(calcFile.getPath());
+			calcService.solveCalc(calcolo);
+		}
+
 		
 	}
 
 	public void stop() {
+		
 		LOGGER.info("Stopping Application");
 		LOGGER.info("Application stopped");
 		

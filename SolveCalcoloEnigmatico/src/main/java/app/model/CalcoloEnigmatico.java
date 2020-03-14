@@ -12,15 +12,13 @@ public class CalcoloEnigmatico {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CalcoloEnigmatico.class);
 
-	String path = "./src/main/resources/calcs/";
-
 	private List<String> rows;
 
 	private Key solutionKey;
 
-	public CalcoloEnigmatico(String filename) {
+	public CalcoloEnigmatico(String filepath) {
 
-		String calcPath = path + filename.trim();
+		String calcPath = filepath.trim();
 		this.rows = AppFiles.getFileAsLines(calcPath);
 		this.solutionKey = new Key();
 

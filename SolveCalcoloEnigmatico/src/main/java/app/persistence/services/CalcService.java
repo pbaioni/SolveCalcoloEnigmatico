@@ -35,7 +35,7 @@ public class CalcService {
 
 		CalcoloEnigmatico calcolo = new CalcoloEnigmatico(filename);
 
-		LOGGER.info("Calc loaded:\n" + calcolo.toString());
+		LOGGER.info("Calc loaded from file " + filename);
 
 		return calcolo;
 
@@ -45,7 +45,7 @@ public class CalcService {
 	public void solveCalc(CalcoloEnigmatico calcolo) {
 
 		LOGGER.info("");
-		LOGGER.info("Solving calc... [new]");
+		LOGGER.info("Solving calc...");
 
 		// list containing the possible solution keys
 		List<Key> keys = new ArrayList<Key>();
