@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import app.model.CalcoloEnigmatico;
 import app.model.Key;
+import app.model.helper.OperationHelper;
 import app.persistence.model.OperationDo;
 import app.persistence.repo.OperationRepository;
 

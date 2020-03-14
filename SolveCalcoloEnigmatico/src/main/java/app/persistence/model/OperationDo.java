@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import app.persistence.services.OperationHelper;
+import app.model.helper.OperationHelper;
 
 
 

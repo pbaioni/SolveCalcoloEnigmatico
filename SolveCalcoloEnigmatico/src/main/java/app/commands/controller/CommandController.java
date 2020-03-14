@@ -17,8 +17,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import app.commands.properties.CommandProperties;
+import app.model.helper.OperationHelper;
 import app.persistence.model.OperationDo;
-import app.persistence.services.OperationHelper;
 import app.persistence.services.OperationService;
 
 
