@@ -88,6 +88,19 @@ public class Key {
 	public int getMerges() {
 		return resultMap.size();
 	}
+	
+	public Key cloneKey() {
+		
+		Key clonedKey = new Key();
+		for (Map.Entry<Integer, String> entry : this.getKeyMap().entrySet()) {
+			clonedKey.getKeyMap().put(entry.getKey(), entry.getValue());
+		}
+		for (Map.Entry<String, String> entry : this.getResultMap().entrySet()) {
+			clonedKey.getResultMap().put(entry.getKey(), entry.getValue());
+		}
+		
+		return clonedKey;
+	}
 
 	public TreeMap<Integer, String> getKeyMap() {
 		return keyMap;

@@ -58,7 +58,6 @@ public class CalcService {
 
 			for (OperationDo operation : operationRepository.findByCrypto(OperationHelper.ReduceToCrypto(row))) {
 
-				List<Key> tempKeys = new ArrayList<Key>();
 				String clearOperation = operation.getOperation();
 
 				if (solveInit) {
@@ -67,24 +66,22 @@ public class CalcService {
 					LOGGER.info("First iteration, adding key: " + tempKey);
 					keys.add(tempKey);
 				} else {
-					// for the further steps, we try to merge the database results into the existing
-					// keys
+					// for the further steps, we try to merge the database results into the existing keys
 					// the right key (correct solution) should have one valid merge per step
+					List<Key> tempKeys = new ArrayList<Key>();
 					for (Key key : keys) {
 						if (key.isCompatibleResult(row, clearOperation)) {
 							LOGGER.info("Compatible result: ["+key.getKeyAsString()+" "+row+" "+clearOperation+"]");
-							//cloning key
-							Key tempKey = new Key();
-							for (Map.Entry<Integer, String> entry : key.getKeyMap().entrySet()) {
-								tempKey.getKeyMap().put(entry.getKey(), entry.getValue());
-							}
-							for (Map.Entry<String, String> entry : key.getResultMap().entrySet()) {
-								tempKey.getResultMap().put(entry.getKey(), entry.getValue());
-							}
+							
+							//cloning key because one key can be compatible with several results for this crypto row analysis
+							Key tempKey = key.cloneKey();
+							//merging the compatible result
 							tempKey.mergeResult(row, clearOperation);
+							//storing in a separate list in order to avoid concurrent access conflicts on "keys"
 							tempKeys.add(tempKey);
 						}
 					}
+					
 					keys.addAll(tempKeys);
 				}
 
@@ -100,7 +97,7 @@ public class CalcService {
 			LOGGER.info("Found keys: [" + keys.size() + "]");
 
 			if (solveInit) {
-				// after the first step, we don't want to create new possible keys anymore
+				// after the first crypto row analysis, we don't want to create new possible keys anymore
 				solveInit = false;
 			}
 
