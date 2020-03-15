@@ -56,21 +56,25 @@ public class CalcService {
 
 			LOGGER.info("Processing crypto row: " + row);
 
+
 			for (OperationDo operation : operationRepository.findByCrypto(OperationHelper.ReduceToCrypto(row))) {
 
 				String clearOperation = operation.getOperation();
 
 				if (solveInit) {
 					// it is the first step, we must add any possible solution
-					Key tempKey = new Key(row, clearOperation);
-					LOGGER.info("First iteration, adding key: " + tempKey);
-					keys.add(tempKey);
+					Key firstStepKey = new Key(row, clearOperation);
+					LOGGER.info("First iteration, adding key: " + firstStepKey);
+					keys.add(firstStepKey);
 				} else {
 					// for the further steps, we try to merge the database results into the existing keys
 					// the right key (correct solution) should have one valid merge per step
 					List<Key> tempKeys = new ArrayList<Key>();
+					
+					//checking the compatibility of the result with all the keys
 					for (Key key : keys) {
 						if (key.isCompatibleResult(row, clearOperation)) {
+							
 							LOGGER.info("Compatible result: ["+key.getKeyAsString()+" "+row+" "+clearOperation+"]");
 							
 							//cloning key because one key can be compatible with several results for this crypto row analysis
@@ -83,12 +87,12 @@ public class CalcService {
 					}
 					
 					keys.addAll(tempKeys);
+
 				}
 
 			}
 
-			// putting at the top of the list the key with the highest number of valid
-			// merges (most probable solution)
+			// putting at the top of the list the keys with the highest number of valid merges (most probable solutions)
 			keys.sort(Comparator.comparing(Key::getMerges).reversed());
 
 			// discarding the keys with lower number of valid merges
