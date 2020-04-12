@@ -74,15 +74,15 @@ public class CalcService {
 					//checking the compatibility of the result with all the keys
 					for (Key key : keys) {
 						if (key.isCompatibleResult(row, clearOperation)) {
-							
-							LOGGER.info("Compatible result: ["+key.getKeyAsString()+" "+row+" "+clearOperation+"]");
-							
+												
 							//cloning key because one key can be compatible with several results for this crypto row analysis
 							Key tempKey = key.cloneKey();
 							//merging the compatible result
 							tempKey.mergeResult(row, clearOperation);
 							//storing in a separate list in order to avoid concurrent access conflicts on "keys"
 							tempKeys.add(tempKey);
+							
+							LOGGER.info("Compatible result: ["+tempKey.getKeyAsString()+" "+row+" "+clearOperation+"]");
 						}
 					}
 					
