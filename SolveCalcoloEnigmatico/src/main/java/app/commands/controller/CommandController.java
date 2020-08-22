@@ -62,8 +62,10 @@ public class CommandController implements CommandLineRunner, DisposableBean {
 			br = new BufferedReader(new InputStreamReader(System.in));
 			LOGGER.info("Commands : ");
 			LOGGER.info("q : quit");
-			LOGGER.info("search crypto : gets the operations for a specific crypto");
-
+			LOGGER.info("search <crypto> : gets the operations for the specific crypto");
+			LOGGER.info("solve <filename> : solves the <filename>.dat calc file");
+			LOGGER.info("fillDB <threshold> : fills the operations database till the threshold number");
+			LOGGER.info("dropDB : Erases the database");
 
 			runCommands = true;
 			while (runCommands) {
