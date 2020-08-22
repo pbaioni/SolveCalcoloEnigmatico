@@ -1,3 +1,5 @@
 /.DS_Store
 /operationsDB.log
 /operationsDB.properties
+/operationsDB.lck
+/operationsDB.script
