@@ -26,16 +26,11 @@ public class Application implements ApplicationRunner, DisposableBean {
 
 	@Autowired
 	OperationService operationService;
-	
+
 	@Autowired
 	CalcService calcService;
-	
-	private String calcFilesPath = "./src/main/resources/calcs/";
 
 	public void init() {
-		
-		// app property example
-		LOGGER.info("App property: " + properties.getAppProperty());
 
 		LOGGER.info("Application initialized");
 
@@ -44,31 +39,33 @@ public class Application implements ApplicationRunner, DisposableBean {
 	public void start() {
 
 		LOGGER.info("Application started");
-		
-		//looking for calc files
-		File dir = new File(calcFilesPath);
-		File[] calcFiles = dir.listFiles(new FilenameFilter()
-		{
-		  public boolean accept(File dir, String name)
-		  {
-		     return name.endsWith(".dat");
-		  }
-		});
-		
-		//load and solve problems
-		for(File calcFile : calcFiles) {
-			CalcoloEnigmatico calcolo = calcService.loadCalc(calcFile.getPath());
-			calcService.solveCalc(calcolo);
+
+		if (properties.getSolveAllCalcs()) {
+			
+			LOGGER.info("Solving all calcs");
+			
+			// looking for calc files
+			File dir = new File(properties.getCalcPath());
+			File[] calcFiles = dir.listFiles(new FilenameFilter() {
+				public boolean accept(File dir, String name) {
+					return name.endsWith(".dat");
+				}
+			});
+
+			// load and solve problems
+			for (File calcFile : calcFiles) {
+				CalcoloEnigmatico calcolo = calcService.loadCalc(calcFile.getPath());
+				calcService.solveCalc(calcolo);
+			}
 		}
 
-		
 	}
 
 	public void stop() {
-		
+
 		LOGGER.info("Stopping Application");
 		LOGGER.info("Application stopped");
-		
+
 	}
 
 	@Override

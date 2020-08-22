@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import app.commands.properties.CommandProperties;
 import app.model.helper.OperationHelper;
 import app.persistence.model.OperationDo;
+import app.persistence.services.CalcService;
 import app.persistence.services.OperationService;
 
 
@@ -29,6 +30,9 @@ public class CommandController implements CommandLineRunner, DisposableBean {
 
 	@Autowired
 	OperationService operationService;
+	
+	@Autowired
+	CalcService calcService;
 
 	@Autowired
 	CommandProperties properties;
@@ -102,18 +106,30 @@ public class CommandController implements CommandLineRunner, DisposableBean {
 
 			scanner.close();
 
-			// System.out.println("cmd: " + command + ", arg: " + argument);
-
 			switch (command) {
+			// quit command
 			case "q":
 				LOGGER.info("In line commands stopped!");
 				this.destroy();
 				System.exit(0);
 				break;
+			// search crypto operation in DB
 			case "search":
 				for (OperationDo result : operationService.searchCrypto(OperationHelper.ReduceToCrypto(arguments.get(0)))) {
 					LOGGER.info(result.getOperation());
 				}
+				break;
+			// solve calc defined in file(ex: solve calc1)
+			case "solve":
+				calcService.solveCalc(calcService.loadCalc(arguments.get(0)+".dat"));
+				break;
+			// fill DB till number (ex: fillDB 2000)
+			case "fillDB":
+				operationService.fillDB(Integer.parseInt(arguments.get(0)));
+				break;
+			// drop DB
+			case "dropDB":
+				operationService.dropDB();
 				break;
 			default:
 				LOGGER.error("Unknown command [" + command + " " + arguments.toString() + "]");

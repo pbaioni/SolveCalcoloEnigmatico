@@ -42,47 +42,66 @@ public class OperationService {
 		return operationToAdd;
 	}
 
-	public void fillDB() {
+	public void fillDB(int threshold) {
 
-		LOGGER.info("Starting filling database");
-		
+		LOGGER.info("Calculating operations...");
+
 		List<OperationDo> entities = new ArrayList<OperationDo>();
-		
-		for (int i = 0; i < 1000; i++) {
-			for (int j = 0; j < 1000; j++) {
+		int progression = 1;
+		int additionResult;
+		String addition;
+		int sustractionResult;
+		String sustraction;
+		int multiplicationResult;
+		String multiplication;
+		int divisionResult;
+		String division;
+
+		for (int i = 0; i <= threshold; i++) {
+
+			//filling database at each 1% of calculation
+			if (i > threshold * progression / 100) {
+				repository.saveAll(entities);
+				entities.clear();
+				LOGGER.info("Progression: " + progression + "%");
+				progression += 1;
+			}
+
+			for (int j = 0; j <= threshold; j++) {
 
 				// addition
-				int additionResult = j + i;
-				String addition = j + "+" + i + "=" + additionResult;
+				additionResult = j + i;
+				addition = j + "+" + i + "=" + additionResult;
 				entities.add(new OperationDo(addition));
 
 				// sustraction
 				if (j >= i) {
-					int sustractionResult = j - i;
-					String sustraction = j + "-" + i + "=" + sustractionResult;
+					sustractionResult = j - i;
+					sustraction = j + "-" + i + "=" + sustractionResult;
 					entities.add(new OperationDo(sustraction));
 				}
 
 				// multiplication
-				if (i < 100 && j < 100) {
-					int multiplicationResult = j * i;
-					String multiplication = j + "*" + i + "=" + multiplicationResult;
+				multiplicationResult = j * i;
+				if (multiplicationResult <= threshold) {
+					multiplication = j + "*" + i + "=" + multiplicationResult;
 					entities.add(new OperationDo(multiplication));
 				}
 
 				// division
 				if (i != 0 && j % i == 0) {
-					int divisionResult = j / i;
-					String division = j + ":" + i + "=" + divisionResult;
+					divisionResult = j / i;
+					division = j + ":" + i + "=" + divisionResult;
 					entities.add(new OperationDo(division));
 				}
-
 			}
 		}
-		
-		repository.saveAll(entities);
-		
+
 		LOGGER.info("Database filled");
 	}
 
+	public void dropDB() {
+		repository.deleteAll();
+		LOGGER.info("Database deleted");
+	}
 }

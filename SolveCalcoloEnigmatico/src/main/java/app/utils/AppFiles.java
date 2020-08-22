@@ -37,4 +37,11 @@ public class AppFiles {
 
 		return fileContent;
 	}
+	
+	public static byte[] getFileContentAsBytes(String filePath) {
+
+		String stringFileContent = getFileAsString(filePath);;
+
+		return stringFileContent.getBytes();
+	}
 }

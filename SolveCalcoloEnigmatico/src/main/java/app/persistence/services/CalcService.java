@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import app.main.properties.ApplicationProperties;
 import app.model.CalcoloEnigmatico;
 import app.model.Key;
 import app.model.helper.OperationHelper;
@@ -24,7 +25,10 @@ import app.persistence.repo.OperationRepository;
 public class CalcService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CalcService.class);
-
+	
+	@Autowired
+	ApplicationProperties appProperties;
+	
 	@Autowired
 	private OperationRepository operationRepository;
 
@@ -34,7 +38,7 @@ public class CalcService {
 
 	public CalcoloEnigmatico loadCalc(String filename) {
 
-		CalcoloEnigmatico calcolo = new CalcoloEnigmatico(filename);
+		CalcoloEnigmatico calcolo = new CalcoloEnigmatico(appProperties.getCalcPath() + filename);
 
 		LOGGER.info("Calc loaded from file " + filename);
 

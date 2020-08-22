@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix="application")
 public class ApplicationProperties {
 	
-	private String appProperty;
+	private boolean solveAllCalcs;
+	private String calcPath;
 	
 
 	
@@ -15,13 +16,21 @@ public class ApplicationProperties {
 		
 	}
 
-	public String getAppProperty() {
-		return appProperty;
+	public boolean getSolveAllCalcs() {
+		return solveAllCalcs;
 	}
 
 
-	public void setAppProperty(String appProperty) {
-		this.appProperty = appProperty;
+	public void setSolveAllCalcs(boolean solveAllCalcs) {
+		this.solveAllCalcs = solveAllCalcs;
+	}
+
+	public String getCalcPath() {
+		return calcPath;
+	}
+
+	public void setCalcPath(String calcPath) {
+		this.calcPath = calcPath;
 	}
 
 }
