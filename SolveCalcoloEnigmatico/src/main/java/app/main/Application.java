@@ -54,7 +54,7 @@ public class Application implements ApplicationRunner, DisposableBean {
 
 			// load and solve problems
 			for (File calcFile : calcFiles) {
-				CalcoloEnigmatico calcolo = calcService.loadCalc(calcFile.getPath());
+				CalcoloEnigmatico calcolo = calcService.loadCalc(calcFile.getName());
 				calcService.solveCalc(calcolo);
 			}
 		}
