@@ -92,7 +92,7 @@ public class CommandController implements CommandLineRunner, DisposableBean {
 		}
 	}
 
-	private void manageCommands(String commandLine) throws Exception {
+	public void manageCommands(String commandLine) throws Exception {
 		Scanner scanner = new Scanner(commandLine);
 		scanner.useDelimiter(" ");
 		if (scanner.hasNext()) {

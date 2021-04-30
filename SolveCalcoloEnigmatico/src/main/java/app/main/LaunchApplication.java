@@ -21,8 +21,8 @@ public class LaunchApplication {
 
 	public static void main(String[] args) {
 		
-		ConfigurableApplicationContext context = SpringApplication.run(LaunchApplication.class, args);
-		context.close();
+		SpringApplication.run(LaunchApplication.class, args);
+		//context.close();
 		
 	}
 
